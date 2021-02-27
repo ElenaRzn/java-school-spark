@@ -1,3 +1,6 @@
+Обратите внимание на совместимость версий Java и Scala:
+https://docs.scala-lang.org/overviews/jdk-compatibility/overview.html
+Если вы используете версию Scala из данного проекта (2.11.8), версия Java должна быть 8.
 1) WordCount
 2) ActionsExample
 3) UnionLog

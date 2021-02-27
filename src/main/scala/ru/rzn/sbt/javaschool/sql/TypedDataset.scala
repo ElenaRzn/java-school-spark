@@ -27,23 +27,30 @@ object TypedDataset extends App {
 
   // TODO выведите схему
   System.out.println("=== Schema ===")
+  typedDataset.printSchema()
 
   // TODO выведите первые 20 записей
   System.out.println("=== 20 records ===")
+  typedDataset.show(20)
 
   // TODO отфильтруйте все ответы из Австралии
   System.out.println("=== responses from Australia ===")
+  typedDataset.filter(response => response.country == "Australia").show()
 
-  // TODO посчитайте количество родов занятий (occupations)
+  // TODO сгруппируйте данные по роду занятия (occupations) и выведите количество записей в каждой группе
   System.out.println("=== count of occupations ===")
+  typedDataset.groupBy(typedDataset.col("occupation")).count().show()
 
   // TODO отфильтруйте ответы со значением age_midpoint меньше 20
   System.out.println("=== responses with average mid age less than 20 ===")
+  typedDataset.filter(response => response.age_midpoint.isDefined && response.age_midpoint.get < 20.0).show()
 
   // TODO отсортируйте ответы по полю salary_midpoint по убывающей
   System.out.println("=== print the result by salary middle point in descending order ===")
+  typedDataset.orderBy(typedDataset.col(SALARY_MIDPOINT).desc).show()
 
-  // TODO сгруппируйте ответы по стране и среднему значению поля salary_midpoint
+  // TODO сгруппируйте ответы по стране и выведите среднее значение поля salary_midpoint
   System.out.println("=== group by country and aggregate by average salary middle point ===")
+  typedDataset.filter(response => response.salary_midpoint.isDefined).groupBy("country").avg(SALARY_MIDPOINT).show()
 
 }
